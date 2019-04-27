@@ -41,6 +41,11 @@ dropdownSortBy.on('click', 'a', function() {
     search(city, searchTerm, howMuch, sorting) // search
 })
 
+resultsDiv.on('click', '#reviewBtn',function() {
+    // console.log($(this).attr('data-reviewID'))
+    reviews($(this).attr('data-reviewID'))
+})
+
 function search(where, what, price, sort) {
     resultsDiv.empty() // clears results
     cats = [] // clears catagories for search
@@ -81,32 +86,36 @@ function search(where, what, price, sort) {
                     .attr('id', 'row-'+businesses[i].id)
                     .appendTo('#' + businesses[i].id)
                 $('<div>') 
-                    .attr('class',  'col-sm-auto') // img container
-                    .attr('id', 'img' + businesses[i].id)
+                    .attr('class',  'col-sm-auto h-100') // img container
+                    .attr('id', 'img-' + businesses[i].id)
                     .appendTo('#row-' + businesses[i].id)
                 $('<img>') // image from result
                     .attr('style', 'height: 200px; width: 200px;')
                     .attr('class', 'img-fluid card-img')
                     .attr('src', businesses[i].image_url)
-                    .appendTo('#img' + businesses[i].id)
+                    .appendTo('#img-' + businesses[i].id)
                 $('<div>') 
                     .attr('class',  'col-sm-7') // text container
-                    .attr('id', 'text' + businesses[i].id)
+                    .attr('id', 'text-' + businesses[i].id)
                     .appendTo('#row-' + businesses[i].id)
                 $('<div>') // title
                     .attr('class', 'resultsText w-100')
                     .html(businesses[i].name)
-                    .appendTo('#text' + businesses[i].id)
+                    .appendTo('#text-' + businesses[i].id)
                 $('<div>')
                     .attr('class', 'w-100')
                     .html(businesses[i].location.address1 + '<br>' + businesses[i].location.city +', '+ businesses[i].location.state + ' ' + businesses[i].location.zip_code)
-                    .appendTo('#text' + businesses[i].id)
+                    .appendTo('#text-' + businesses[i].id)
                 $('<div>')
                     .attr('class', 'w-100')
                     .html(businesses[i].display_phone)
-                    .appendTo('#text' + businesses[i].id)
-
-                    
+                    .appendTo('#text-' + businesses[i].id)
+                $('<button>reviews</button>')
+                    .attr('class', 'btn btn-primary btn-sm mt-2 mb-2')
+                    .attr('id', 'reviewBtn')
+                    .attr('data-reviewID', businesses[i].id)
+                    .appendTo('#text-' + businesses[i].id)
+  
                 let categories = businesses[i].categories
         
                 for (let j = 0; j < categories.length; j++) { // pull categories from search
@@ -124,7 +133,32 @@ function search(where, what, price, sort) {
             }
             console.log(results_array) // for test
         });
-    }
+}
+
+function reviews(id) {
+    var reviewsURL = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}/reviews`
+
+   
+    $.ajax({ // call
+        url: reviewsURL,
+        headers: {
+            'Authorization':'Bearer ByKJz0Ky8pL1uwXzQSTxvANlim2VHt4zmsFriFSgK-rXw_I6zpeQrS9EbF_2Qh8fRJ5BqUG6fqK5R-GoGF0bGgClK-wSPgJfUeEY8_bIPTXT5EtUpgnZo0Pvp4zDXHYx'
+        },
+        method: "GET",
+        }).then(function(response) {
+            console.log(response)
+            let reviews = response.reviews
+            reviews.forEach(function(review) {
+
+            $('<div>')
+                .attr('class', 'mt-1')
+                .attr('style', 'font-size: 12px;')
+                .text(review.text + "- " + review.user.name + " [" + review.rating + " out of 5]")
+                .appendTo('#text-' + id)
+            })
+        })
+}
+
 
 function initMap() { // map
     var map = new google.maps.Map(document.getElementById('map'), {
