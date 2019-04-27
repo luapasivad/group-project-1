@@ -41,9 +41,17 @@ dropdownSortBy.on('click', 'a', function() {
     search(city, searchTerm, howMuch, sorting) // search
 })
 
-resultsDiv.on('click', '#reviewBtn',function() {
+resultsDiv.on('click', '#reviewBtn', function() {
     // console.log($(this).attr('data-reviewID'))
-    reviews($(this).attr('data-reviewID'))
+    var idTemp = $(this).attr('data-reviewID')
+    var clickedTemp = $(this).attr('data-clicked')
+    console.log(clickedTemp)
+
+    if (clickedTemp === "false") {
+        console.log('working')
+        reviews(idTemp)
+        $(this).attr('data-clicked', true)
+    }
 })
 
 function search(where, what, price, sort) {
@@ -113,6 +121,7 @@ function search(where, what, price, sort) {
                 $('<button>reviews</button>')
                     .attr('class', 'btn btn-primary btn-sm mt-2 mb-2')
                     .attr('id', 'reviewBtn')
+                    .attr('data-clicked', "false")
                     .attr('data-reviewID', businesses[i].id)
                     .appendTo('#text-' + businesses[i].id)
   
