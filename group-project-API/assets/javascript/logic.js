@@ -73,19 +73,40 @@ function search(where, what, price, sort) {
                 console.log(cats) //catagories test
 
                 $('<div>') // container for each result
-                    .attr('class', 'resultsContainer m-2 w-100')      
+                    .attr('class', 'resultsContainer card w-100 p-2')      
                     .attr('id', businesses[i].id) 
-                    .appendTo(resultsDiv)      
+                    .appendTo(resultsDiv) 
+                $('<div>')
+                    .attr('class', 'row no-gutters;')
+                    .attr('id', 'row-'+businesses[i].id)
+                    .appendTo('#' + businesses[i].id)
+                $('<div>') 
+                    .attr('class',  'col-sm-auto') // img container
+                    .attr('id', 'img' + businesses[i].id)
+                    .appendTo('#row-' + businesses[i].id)
                 $('<img>') // image from result
-                    .attr('style', 'height: 100px; width: 100px; display: inline-block;')
-                    .attr('class', 'img-fluid')
+                    .attr('style', 'height: 200px; width: 200px;')
+                    .attr('class', 'img-fluid card-img')
                     .attr('src', businesses[i].image_url)
-                    .appendTo('#' + businesses[i].id)
-                $('<span>') // title
-                    .attr('class', 'resultsText ml-2')
-                    .text(businesses[i].name)
-                    .appendTo('#' + businesses[i].id)
+                    .appendTo('#img' + businesses[i].id)
+                $('<div>') 
+                    .attr('class',  'col-sm-7') // text container
+                    .attr('id', 'text' + businesses[i].id)
+                    .appendTo('#row-' + businesses[i].id)
+                $('<div>') // title
+                    .attr('class', 'resultsText w-100')
+                    .html(businesses[i].name)
+                    .appendTo('#text' + businesses[i].id)
+                $('<div>')
+                    .attr('class', 'w-100')
+                    .html(businesses[i].location.address1 + '<br>' + businesses[i].location.city +', '+ businesses[i].location.state + ' ' + businesses[i].location.zip_code)
+                    .appendTo('#text' + businesses[i].id)
+                $('<div>')
+                    .attr('class', 'w-100')
+                    .html(businesses[i].display_phone)
+                    .appendTo('#text' + businesses[i].id)
 
+                    
                 let categories = businesses[i].categories
         
                 for (let j = 0; j < categories.length; j++) { // pull categories from search
