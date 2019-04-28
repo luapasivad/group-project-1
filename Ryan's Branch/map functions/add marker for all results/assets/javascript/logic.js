@@ -14,6 +14,8 @@ var locationTxt = $('#locationTxt'),
     howMuch = 2, // price variable starting at 2
     sorting = "best_match";
 
+var myMarkers = []
+
 
 searchBtn.on('click', function() {
     searchTerm = searchTxt.val(); // text box
@@ -70,11 +72,6 @@ function search(where, what, price, sort) {
               center: {lat: latSearch, lng: lngSearch}
             });
 
-            console.log('zoom: ' + map.zoom)
-            console.log('lat: ' + map.center.lat)
-            console.log('lng: ' + map.center.lng)
-            console.log('center: ' + map.center)
-
             for (let i=0; i < businesses.length; i++){
 
               let name = businesses[i].name
@@ -85,7 +82,8 @@ function search(where, what, price, sort) {
               map.setCenter({lat: latSearch, lng: lngSearch}); 
 
               // create marker at current address
-              createMarker(map, name)
+              let marker = createMarker(map, name, businesses[i].id)
+              myMarkers.push(marker)
 
               results_array.push(businesses[i]) // adds to result array
               // console.log(cats) //catagories test
@@ -123,12 +121,13 @@ function search(where, what, price, sort) {
         });
     }
 
-function createMarker(map, name) {
+function createMarker(map, name, id) {
   // create a marker
   var marker = new google.maps.Marker({
     map: map,
     position: map.center,
-    title: name
+    title: name,
+    id: id
   });
 
   // create info window
@@ -145,44 +144,37 @@ function createMarker(map, name) {
   marker.addListener('mouseout', function() {
     infowindow.close(map, marker);
   });
+
+  return marker
 }
 
 
-function initMap(address) { // map
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: latSearch, lng: lngSearch}
-    });
-
-    // var geocoder = new google.maps.Geocoder();
-    // geocodeAddress(geocoder, map, address);
+function highlightMarker() {
+  let thisID = $(this).attr('id')
+  for (let i = 0; i < myMarkers.length; i++) {
+    if (thisID === myMarkers[i].get('id')) {
+      myMarkers[i].setAnimation(google.maps.Animation.BOUNCE)
+    } else {
+      myMarkers[i].setAnimation(null)
+    }
   }
+}
 
-  // function geocodeAddress(geocoder, resultsMap, address, name) {
-  //   geocoder.geocode({'address': address}, function(results, status) {
-  //     if (status === 'OK') {
-  //       resultsMap.setCenter(results[0].geometry.location);
-        
-  //       // add marker to the map
-  //       var marker = new google.maps.Marker({
-  //         map: resultsMap,
-  //         position: results[0].geometry.location,
-  //         title: name
-  //       });
+// function stopHighlight() {
+//   let thisID = $(this).attr('id')
+//   for (let i = 0; i < myMarkers.length; i++) {
+//     if (thisID === myMarkers[i].get('id')) {
+//       myMarkers[i].setAnimation(null);
+//     }
+//   }
+// }
+
+function initMap() {
+
+}
+
+
+$(document).on('click', '.resultsContainer', highlightMarker)
+// $(document).on('mouseout', '.resultsContainer', stopHighlight)
+
   
-  //       // create info window
-  //       var infowindow = new google.maps.InfoWindow({
-  //           content: address,
-  //           maxWidth: 200
-  //         });
-  
-  //         // open window on click
-  //         marker.addListener('click', function() {
-  //           infowindow.open(map, marker);
-  //         });
-  
-  //     } else {
-  //       alert('Geocode was not successful for the following reason: ' + status);
-  //     }
-  //   });
-  // }
