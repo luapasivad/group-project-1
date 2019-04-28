@@ -51,7 +51,7 @@ function nextPage() {
   offset = trueOffset * page
   searchTerm = searchTxt.val(); // text box
   city = locationTxt.val(); 
-  search(city, searchTerm, howMuch, sorting, offset * page)
+  search(city, searchTerm, howMuch, sorting, offset)
 }
 
 function prevPage() {
@@ -60,7 +60,7 @@ function prevPage() {
   offset = trueOffset * page
   searchTerm = searchTxt.val(); // text box
   city = locationTxt.val(); 
-  search(city, searchTerm, howMuch, sorting, offset * page)
+  search(city, searchTerm, howMuch, sorting, offset)
 }
 
 
