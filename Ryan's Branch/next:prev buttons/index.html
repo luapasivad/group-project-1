@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>One Day Off</title>
+</head>
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row" data-what="searchRow">
+      <div class="col-sm-2"></div>
+
+      <div class="col-sm-8">
+
+        <div class="form-group">
+          <label for=""></label>
+          <input type="text" class="form-control" id="locationTxt" placeholder="city">
+        </div>
+
+        <div class="form-group">
+          <label for=""></label>
+          <input type="text" class="form-control" id="searchTxt" placeholder="searchterm">
+        </div>
+
+        <button type="button" id="searchBtn" class="btn btn-primary">Search</button>
+
+      </div>
+
+      <div class="col-sm-2"></div>
+
+    </div>
+
+    <div class="row mt-2" data-what="filterRow">
+      <div class="col-sm-2"></div>
+
+      <div class="col-sm-8">
+
+        <div class="dropdown d-inline">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Catagories
+          </button>
+          <div class="dropdown-menu" id="dropdown-catagories" aria-labelledby="dropdownMenuButton"></div>
+        </div>
+
+        <div class="btn-group btn-group-toggle" id="price" data-toggle="buttons">
+          <label class="btn btn-secondary btn-sm" data-howMuch="1">
+            <input type="radio" name="options" id="price1" autocomplete="off" checked>$
+          </label>
+          <label class="btn btn-secondary btn-sm" data-howMuch="2">
+            <input type="radio" name="options" id="price2" autocomplete="off">$$
+          </label>
+          <label class="btn btn-secondary btn-sm" data-howMuch="3">
+            <input type="radio" name="options" id="price3" autocomplete="off">$$$
+          </label>
+          <label class="btn btn-secondary btn-sm" data-howMuch="4">
+            <input type="radio" name="options" id="price4" autocomplete="off">$$$$
+          </label>
+        </div>
+
+
+        <div class="dropdown d-inline" id="dropdown-SortBy">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort by..
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item active" data-sortBy="best_match">Best Match</a>
+            <a class="dropdown-item" data-sortBy="review_count">Review Count</a>
+            <a class="dropdown-item" data-sortBy="rating">Highest Rated</a>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+      <div class="col-sm-2"></div>
+    </div>
+
+    <div class="row  mt-4" data-what="resultsRow">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-8" id="results"></div>
+      <div class="col-sm-3">
+
+        <div id="map"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- bootstrap scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- logic -->
+  <script src="assets/javascript/logic.js"></script>
+  <script type="text/javascript"></script>
+  <!-- google maps -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTkf1V2_w0As5gnBNmLnMEBWDNwVnulg"></script>
+</body>
+</html>

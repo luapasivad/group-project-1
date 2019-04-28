@@ -1,0 +1,15 @@
+.resultsContainer {
+    float: left;
+}
+
+#map {
+    height: 5%;
+    width: 100%;
+    position: fixed;
+  }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
