@@ -5,6 +5,7 @@
 #map {
     height: 5%;
     width: 100%;
+    position: fixed;
   }
 
 html, body {

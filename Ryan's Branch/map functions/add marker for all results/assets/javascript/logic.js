@@ -68,7 +68,7 @@ function search(where, what, price, sort) {
 
             // create map
             var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 8,
+              zoom: 9,
               center: {lat: latSearch, lng: lngSearch}
             });
 
@@ -136,7 +136,7 @@ function createMarker(map, name, id) {
     maxWidth: 200
   });
 
-  // open window on click
+  // open window on hover
   marker.addListener('mouseover', function() {
     infowindow.open(map, marker);
   });
@@ -160,21 +160,19 @@ function highlightMarker() {
   }
 }
 
-// function stopHighlight() {
-//   let thisID = $(this).attr('id')
-//   for (let i = 0; i < myMarkers.length; i++) {
-//     if (thisID === myMarkers[i].get('id')) {
-//       myMarkers[i].setAnimation(null);
-//     }
-//   }
-// }
-
-function initMap() {
-
+function stopHighlight() {
+  let thisID = $(this).attr('id')
+  for (let i = 0; i < myMarkers.length; i++) {
+    if (thisID === myMarkers[i].get('id')) {
+      myMarkers[i].setAnimation(null);
+    }
+  }
 }
 
+function initMap() { }
 
-$(document).on('click', '.resultsContainer', highlightMarker)
-// $(document).on('mouseout', '.resultsContainer', stopHighlight)
+
+$(document).on('mouseover', '.resultsContainer', highlightMarker)
+$(document).on('mouseout', '.resultsContainer', stopHighlight)
 
   
