@@ -146,7 +146,6 @@ function search(where, what, price, sort) {
 
 function reviews(id) {
     var reviewsURL = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}/reviews`
-
    
     $.ajax({ // call
         url: reviewsURL,
