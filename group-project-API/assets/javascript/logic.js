@@ -45,13 +45,13 @@ resultsDiv.on('click', '#reviewBtn', function() {
     // console.log($(this).attr('data-reviewID'))
     var idTemp = $(this).attr('data-reviewID')
     var clickedTemp = $(this).attr('data-clicked')
-    console.log(clickedTemp)
-
+    // console.log(clickedTemp)
     if (clickedTemp === "false") {
         console.log('working')
         reviews(idTemp)
         $(this).attr('data-clicked', true)
     }
+
 })
 
 function search(where, what, price, sort) {
@@ -98,31 +98,31 @@ function search(where, what, price, sort) {
                     .attr('id', 'img-' + businesses[i].id)
                     .appendTo('#row-' + businesses[i].id)
                 $('<img>') // image from result
-                    .attr('style', 'height: 200px; width: 200px;')
+                    .attr('style', 'height: 150px; width: 150px;')
                     .attr('class', 'img-fluid card-img')
                     .attr('src', businesses[i].image_url)
                     .appendTo('#img-' + businesses[i].id)
                 $('<div>') 
-                    .attr('class',  'col-sm-7') // text container
+                    .attr('class',  'col-sm-6') // text container
                     .attr('id', 'text-' + businesses[i].id)
                     .appendTo('#row-' + businesses[i].id)
                 $('<div>') // title
                     .attr('class', 'resultsText w-100')
-                    .html(businesses[i].name)
+                    .html(businesses[i].name) // text
                     .appendTo('#text-' + businesses[i].id)
                 $('<div>')
                     .attr('class', 'w-100')
                     .html(businesses[i].location.address1 + '<br>' + businesses[i].location.city +', '+ businesses[i].location.state + ' ' + businesses[i].location.zip_code)
-                    .appendTo('#text-' + businesses[i].id)
+                    .appendTo('#text-' + businesses[i].id) // text
                 $('<div>')
                     .attr('class', 'w-100')
-                    .html(businesses[i].display_phone)
+                    .html(businesses[i].display_phone) // text
                     .appendTo('#text-' + businesses[i].id)
                 $('<button>reviews</button>')
                     .attr('class', 'btn btn-primary btn-sm mt-2 mb-2')
                     .attr('id', 'reviewBtn')
                     .attr('data-clicked', "false")
-                    .attr('data-reviewID', businesses[i].id)
+                    .attr('data-reviewID', businesses[i].id) // button 
                     .appendTo('#text-' + businesses[i].id)
   
                 let categories = businesses[i].categories
@@ -158,7 +158,7 @@ function reviews(id) {
             let reviews = response.reviews
             reviews.forEach(function(review) {
 
-            $('<div>')
+            $('<div>') // review text
                 .attr('class', 'mt-1')
                 .attr('style', 'font-size: 12px;')
                 .text(review.text + "- " + review.user.name + " [" + review.rating + " out of 5]")
