@@ -12,6 +12,52 @@
   <!-- <link rel="stylesheet" href="assets/CSS/reset.css" type="text/css"> -->
   <link rel="stylesheet" href="assets/CSS/style.css" type="text/css">
 
+  <!--login-->
+  <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCMhjtnXjR2fFOSTxAI_JjLEAjvgyAqhII",
+      authDomain: "authentication-test-2-e9259.firebaseapp.com",
+      databaseURL: "https://authentication-test-2-e9259.firebaseio.com",
+      projectId: "authentication-test-2-e9259",
+      storageBucket: "authentication-test-2-e9259.appspot.com",
+      messagingSenderId: "188490667022",
+    };
+    firebase.initializeApp(config);
+  </script>
+
+     <script src="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.js"></script>
+     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.css" />
+     <script type="text/javascript">
+       // FirebaseUI config.
+       var uiConfig = {
+         signInSuccessUrl: 'http://127.0.0.1:5502/youdidit.html',
+         signInOptions: [
+           // Leave the lines as is for the providers you want to offer your users.
+           firebase.auth.EmailAuthProvider.PROVIDER_ID,
+
+         ],
+         // tosUrl and privacyPolicyUrl accept either url string or a callback
+         // function.
+         // Terms of service url/callback.
+         tosUrl: '<your-tos-url>',
+          'credentialHelper': firebaseui.auth.CredentialHelper.NONE,
+         // Privacy policy url/callback.
+         privacyPolicyUrl: function() {
+           window.location.assign('<your-privacy-policy-url>');
+         }
+       };
+ 
+       // Initialize the FirebaseUI Widget using Firebase.
+       var ui = new firebaseui.auth.AuthUI(firebase.auth());
+       // The start method will wait until the DOM is loaded.
+       ui.start('#firebaseui-auth-container', uiConfig);
+     </script>
+
+
+   </head>
+
 </head>
 
 <body>
@@ -19,88 +65,117 @@
 
   <div class="container-fluid">
 
-    <div class="row" data-what="searchRow">
-      <div class="col-sm-2"></div>
-
-      <div class="col-sm-8">
-
-        <div class="form-group">
-          <label for=""></label>
-          <input type="text" class="form-control" id="locationTxt" placeholder="city">
-        </div>
-
-        <div class="form-group">
-          <label for=""></label>
-          <input type="text" class="form-control" id="searchTxt" placeholder="searchterm">
-        </div>
-
-        <button type="button" id="searchBtn" class="btn btn-primary">Search</button>
-
-      </div>
-
-      <div class="col-sm-2"></div>
-
-    </div>
-
-    <div class="row mt-2" data-what="filterRow">
-      <div class="col-sm-2"></div>
-
-      <div class="col-sm-8">
-
-        <div class="dropdown d-inline">
-          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Catagories
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">OneDayOff</a>
+      </button>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary" id="login" data-toggle="modal" data-target="#exampleModal">
+            login modal
           </button>
-          <div class="dropdown-menu" id="dropdown-catagories" aria-labelledby="dropdownMenuButton"></div>
-        </div>
+        </li>
+      </ul>
+    </nav>
 
-        <div class="btn-group btn-group-toggle" id="price" data-toggle="buttons">
-          <label class="btn btn-secondary btn-sm" data-howMuch="1">
-            <input type="radio" name="options" id="price1" autocomplete="off" checked>$
-          </label>
-          <label class="btn btn-secondary btn-sm" data-howMuch="2">
-            <input type="radio" name="options" id="price2" autocomplete="off">$$
-          </label>
-          <label class="btn btn-secondary btn-sm" data-howMuch="3">
-            <input type="radio" name="options" id="price3" autocomplete="off">$$$
-          </label>
-          <label class="btn btn-secondary btn-sm" data-howMuch="4">
-            <input type="radio" name="options" id="price4" autocomplete="off">$$$$
-          </label>
-        </div>
-
-
-        <div class="dropdown d-inline" id="dropdown-SortBy">
-          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort by..
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item active" data-sortBy="best_match">Best Match</a>
-            <a class="dropdown-item" data-sortBy="review_count">Review Count</a>
-            <a class="dropdown-item" data-sortBy="rating">Highest Rated</a>
-          </div>
         </div>
+        <div class="modal-body">
+          <div id="firebaseui-auth-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
+  <div class="row" data-what="searchRow">
+    <div class="col-sm-2"></div>
 
+    <div class="col-sm-8">
 
-
+      <div class="form-group">
+        <label for=""></label>
+        <input type="text" class="form-control" id="locationTxt" placeholder="city">
       </div>
 
-      <div class="col-sm-2"></div>
-    </div>
-
-    <div class="row  mt-4" data-what="resultsRow">
-      <!-- <div class="col-sm-1"></div> -->
-      <div class="col-sm-8 p-0" id="results"></div>
-      <div class="col-sm-4" id="sidebar">
-       <div id="map"></div>
-          
-        
+      <div class="form-group">
+        <label for=""></label>
+        <input type="text" class="form-control" id="searchTxt" placeholder="searchterm">
       </div>
 
+      <button type="button" id="searchBtn" class="btn btn-primary">Search</button>
+
     </div>
+
+    <div class="col-sm-2"></div>
+
+  </div>
+
+  <div class="row mt-2" data-what="filterRow">
+    <div class="col-sm-2"></div>
+
+    <div class="col-sm-8">
+
+      <div class="dropdown d-inline">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Catagories
+        </button>
+        <div class="dropdown-menu" id="dropdown-catagories" aria-labelledby="dropdownMenuButton"></div>
+      </div>
+
+      <div class="btn-group btn-group-toggle" id="price" data-toggle="buttons">
+        <label class="btn btn-secondary btn-sm" data-howMuch="1">
+          <input type="radio" name="options" id="price1" autocomplete="off" checked>$
+        </label>
+        <label class="btn btn-secondary btn-sm" data-howMuch="2">
+          <input type="radio" name="options" id="price2" autocomplete="off">$$
+        </label>
+        <label class="btn btn-secondary btn-sm" data-howMuch="3">
+          <input type="radio" name="options" id="price3" autocomplete="off">$$$
+        </label>
+        <label class="btn btn-secondary btn-sm" data-howMuch="4">
+          <input type="radio" name="options" id="price4" autocomplete="off">$$$$
+        </label>
+      </div>
+
+
+      <div class="dropdown d-inline" id="dropdown-SortBy">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by..
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item active" data-sortBy="best_match">Best Match</a>
+          <a class="dropdown-item" data-sortBy="review_count">Review Count</a>
+          <a class="dropdown-item" data-sortBy="rating">Highest Rated</a>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-2"></div>
+  </div>
+
+  <div class="row  mt-4" data-what="resultsRow">
+    <!-- <div class="col-sm-1"></div> -->
+    <div class="col-sm-8 ml-3" id="results"></div>
+    <div class="col-sm-3" id="sidebar">
+      <div id="map"></div>
+
+
+    </div>
+
+  </div>
 
   </div>
 
