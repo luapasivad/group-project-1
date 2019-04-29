@@ -13,4 +13,9 @@ html, body {
   padding: 0;
 }
 
+.fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
 

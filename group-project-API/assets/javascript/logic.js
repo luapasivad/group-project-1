@@ -3,22 +3,27 @@ var locationTxt = $('#locationTxt'),
     searchTxt = $('#searchTxt'),
     searchBtn = $('#searchBtn'), // btns and text
     resultsDiv = $('#results'),
+    currentDayDiv = $('#currentDayDiv'),
     dropdownCatagories = $('#dropdown-catagories'),
     dropdownSortBy = $('#dropdown-SortBy'),
     priceBtn = $('#price'),
-    results_array = [], // stored array for results (not necessary)
+    resultsArr = [], // stored array for results (not necessary)
     latSearch = 0,
     lngSearch = 0, // starting lal-lng value for map
     cats = [],
     city = "", // global city term
     searchTerm = "", // global search term
     howMuch = 2, // price variable starting at 2
-    sorting = "best_match";
+    sorting = "best_match", // sort variable
+    myMarkers = [], // marker array for map
+    trueOffset = 20, // for next page function
+    page = 0, // for next page function
+    offset = trueOffset * page, // offset
+    currentDayArr = [], // temp storage for creating dayPlan
+    favObject = {}
 
-var myMarkers = [] // marker array
-var trueOffset = 20
-var page = 0
-var offset = trueOffset * page
+
+
 
 
 
@@ -53,11 +58,33 @@ resultsDiv.on('click', '#reviewBtn', function () {
     var clickedTemp = $(this).attr('data-clicked')
     // console.log(clickedTemp)
     if (clickedTemp === "false") {
-        console.log('working')
+        // console.log('working')
         reviews(idTemp)
         $(this).attr('data-clicked', true)
     }
 })
+
+resultsDiv.on('click', '#save', function () {
+    // console.log(resultsArr)
+    // console.log(resultsArr[$(this).attr('data-index')].name)
+    let selected = resultsArr[$(this).attr('data-index')]
+    currentDayArr.push(selected)
+    console.log(currentDayArr)
+    $('<div>')
+        .attr('id', 'selected-' + selected.id)
+        .attr('class', 'mt-2')
+        .appendTo(currentDayDiv)
+    $('<div>')
+        .html("&#8226; " + selected.name)
+        .appendTo('#selected-' + selected.id)
+    $('<div>')
+        .html(" " + selected.address)
+        .attr('style', 'font-size: 10px;')
+        .appendTo('#selected-' + selected.id)
+})
+
+
+
 
 function nextPage() {
     event.preventDefault()
@@ -80,6 +107,7 @@ function nextPage() {
 function search(where, what, price, sort) {
     resultsDiv.empty() // clears results
     cats = [] // clears catagories for search
+    resultsArr = []
 
     var queryurl = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${what}&location=${where}&price=${price}&sort_by=${sort}`
     // dynamic URL ^^
@@ -91,7 +119,7 @@ function search(where, what, price, sort) {
         },
         method: "GET",
     }).then(function (response) {
-        // console.log(response) // test
+        console.log(response) // test
         dropdownCatagories.empty() // empty catagories dropdown to repopulate
         let businesses = response.businesses;
 
@@ -106,14 +134,29 @@ function search(where, what, price, sort) {
             center: {
                 lat: latSearch,
                 lng: lngSearch
-            }
+            },
+            mapTypeControl: false,
+            streetViewControl: false
         });
 
 
         for (let i = 0; i < businesses.length; i++) {
-
             let name = businesses[i].name
+           
+            var favObject = { 
+                name: name,
+                address: businesses[i].location.address1 + ' <br>' + businesses[i].location.city + ', ' + businesses[i].location.state + ' ' + businesses[i].location.zip_code,
+                rating: businesses[i].rating,
+                price: businesses[i].price,
+                phoneNumber: businesses[i].phoneNumber,
+                img: businesses[i].image_url,
+                id: businesses[i].id,
+                location: locationTxt,
+            }
 
+            resultsArr.push(favObject)
+
+            console.log(businesses[i].location.display_address)
             // re-center the map on current business
             latSearch = businesses[i].coordinates.latitude
             lngSearch = businesses[i].coordinates.longitude
@@ -126,8 +169,7 @@ function search(where, what, price, sort) {
             let marker = createMarker(map, name, businesses[i].id)
             myMarkers.push(marker)
 
-            results_array.push(businesses[i]) // adds to result array
-            console.log(cats) //catagories test
+            // console.log(cats) //catagories test
 
             $('<div>') // container for each result
                 .attr('class', 'resultsContainer card w-100 p-2')
@@ -152,11 +194,13 @@ function search(where, what, price, sort) {
                 .appendTo('#row-' + businesses[i].id)
             $('<div>') // title
                 .attr('class', 'resultsText w-100')
+                .attr('id', 'businessName')
                 .html(businesses[i].name) // text
                 .appendTo('#text-' + businesses[i].id)
             $('<div>')
                 .attr('class', 'w-100')
-                .html(businesses[i].location.address1 + '<br>' + businesses[i].location.city + ', ' + businesses[i].location.state + ' ' + businesses[i].location.zip_code)
+                .attr('id', 'businessAddress')
+                .html(businesses[i].location.address1 + ' <br>' + businesses[i].location.city + ', ' + businesses[i].location.state + ' ' + businesses[i].location.zip_code)
                 .appendTo('#text-' + businesses[i].id) // text
             $('<div>')
                 .attr('class', 'w-100')
@@ -168,6 +212,13 @@ function search(where, what, price, sort) {
                 .attr('data-clicked', "false")
                 .attr('data-reviewID', businesses[i].id) // button 
                 .appendTo('#text-' + businesses[i].id)
+            $('<button>&#9733;</button>')
+                .attr('class', 'btn btn-primary btn-sm mt-2 mb-2 ml-2')
+                .attr('data-clicked', 'false')
+                .attr('data-index', i)
+                .attr('id', 'save')
+                .appendTo('#text-' + businesses[i].id)
+
 
             let categories = businesses[i].categories
 
@@ -272,6 +323,27 @@ function stopHighlight() {
 }
 
 function initMap() {}
+
+function stickTop() {
+    var $obj = $('#sidebar');
+    var top = $obj.offset().top - parseFloat($obj.css('marginTop').replace(/auto/, 0));
+  
+    $(window).scroll(function (event) {
+      // what the y position of the scroll is
+      var y = $(this).scrollTop();
+  
+      // whether that's below the form
+      if (y >= top) {
+        // if so, ad the fixed class
+        $obj.addClass('fixed');
+      } else {
+        // otherwise remove it
+        $obj.removeClass('fixed');
+      }
+    });
+}
+
+stickTop()
 
 $(document).on('mouseover', '.resultsContainer', highlightMarker)
 $(document).on('mouseout', '.resultsContainer', stopHighlight)
