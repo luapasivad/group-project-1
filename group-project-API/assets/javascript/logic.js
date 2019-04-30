@@ -28,6 +28,7 @@ var locationTxt = $('#locationTxt'),
 
 
 searchBtn.on('click', function () {
+    page = 0
     searchTerm = searchTxt.val(); // text box
     city = locationTxt.val(); // text box
     search(city, searchTerm, howMuch, sorting) // function    
@@ -99,7 +100,7 @@ function nextPage() {
     event.preventDefault()
     page--
     offset = trueOffset * page
-    searchTerm = searchTxt.val(); // text box
+    searchTerm = searchTerm; // text box
     city = locationTxt.val(); 
     search(city, searchTerm, howMuch, sorting, offset)
   }
@@ -123,7 +124,7 @@ function search(where, what, price, sort) {
         dropdownCatagories.empty() // empty catagories dropdown to repopulate
         let businesses = response.businesses;
 
-        searchTxt.val("") // delete text in search boxes
+        // searchTxt.val("") // delete text in search boxes
         // locationTxt.val("") 
 
         latSearch = businesses[0].coordinates.latitude
