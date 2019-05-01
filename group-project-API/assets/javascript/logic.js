@@ -104,7 +104,7 @@ currentDayDiv.on('click', '#finalizeBtn', function() {
     // console.log('working')
     // push to database
     let userOn = firebase.auth().currentUser
-    let email = userOn.email
+    let email;
     let key = ""
     function makeid() {
         let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -116,6 +116,7 @@ currentDayDiv.on('click', '#finalizeBtn', function() {
      }
         if (userOn) {
             makeid()
+            email = userOn.email
             db.collection('plans').doc(key).set({
                 plan: currentDayArr
             })
@@ -146,6 +147,8 @@ currentDayDiv.on('click', '#finalizeBtn', function() {
     //     })
     // })
 })
+
+// $('#btnRecover').on('click', )
 
 function nextPage() {
     event.preventDefault()
