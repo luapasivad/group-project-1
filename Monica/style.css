@@ -1,42 +1,250 @@
-.container{
-    border-color: black;
+*::after,
+*::before {
+    box-sizing: border-box
+}
+
+
+body{
+    background-size: cover;
+    font-family: 'Barlow', sans-serif;
+    color: #145374;
+}
+
+#profile{
+    margin-top: 20px; 
+    margin-bottom: 20px;
     width: 875px;
     border-style: solid;
     border-width: 5px;
-    
-
+    background-color: #e8e8e8;
+    /* opacity: 0.8; */
+    border-color: #00334e;
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    border-radius: 25px;
+    color: #145374;
+    padding: 30px;
+  
 }
 
 h1{
     text-align: center;
     font-size: 24px;
+    color: #00334e;
+    font-family: 'Barlow', sans-serif;
+}
+
+h2{
+    font-size: 22px;
+    color: #00334e;
+    font-family: 'Barlow', sans-serif;
+    text-align: center;
+
 }
 
 #created{
     border-style: solid;
-    border-color: black;
-    border-width: 3px;
+    border-color: #00334e;
+    border-width: 5px;
     text-align: center;
     padding: 10px 15px 10px 15px;
     min-height: 90%;
     margin: 10px;
+    background-color: #e8e8e8;
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    border-radius: 25px;
+    color: #145374;
 }
 
 #favorites{
     border-style: solid;
-    border-color: black;
-    border-width: 3px;
+    border-color: #00334e;
+    border-width: 5px;
     text-align: center;
     padding: 10px 15px 10px 15px;
     min-height: 90%;
     margin: 10px;
+    background-color: #e8e8e8;
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    border-radius: 25px;
+    color: #145374;
     
     
 }
 
 .days-off-card{
     margin-top: 10px;
+}
+
+.nav-link{
+    color: #00334E;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#searchButton{
+    background-color: #00334e;
+    color: white;
+    border-color: #00334e;
+    margin-left: 5px;
+}
+
+#selected{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #00334e;
+    margin-left: 20px;
+    margin-right: 20px;
+    min-height: 300px;
+    margin-top: 10px;
+    font-family: 'Barlow', sans-serif;
+    color: #145374;
+}
+
+#map{
+    border-style: solid;
+    border-width: 2px;
+    border-color:#00334e;
+    margin-left: 20px;
+    margin-right: 20px;
+    min-height: 100px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 30px;
+    color: #145374;
+}
+
+#saved{
+    /* position:fixed; */
+    min-height: 100px;
+    text-align: center;
+    /* float:left;
+    width: 250px; */
+    border-color:#00334e;
+    border-style: solid;
+    border-width: 5px;
+    text-align: center;
+    /* margin-right: 35px; */
+    /* float: right; */
+    background-color: #e8e8e8;
+    font-family: 'Barlow', sans-serif;
+    font-size: 30px;
+    border-radius: 25px;
+    color: #145374;
+}
+
+#searchResults{
+    min-height: 450px;
+    text-align: center;
+    /* float:left; */
+    border-color: #00334e;
+    border-style: solid;
+    border-width: 5px;
+    text-align: center;
+    margin-left: 35px;
+    /* float: left; */
+    /* width: 500px; */
+    background-color: #e8e8e8;
+    font-family: 'Barlow', sans-serif;
+    font-size: 30px;
+    border-radius: 25px;
+    color: #145374;
 
 }
+
+#personOne, #personTwo, #personThree, #personFour {
+           
+}
+#headingOne, #headingTwo, #headingThree, #headingFour {
+    background-color: green;
+    
+}
+button[data-toggle="collapse"] {
+    color: black;
+}
+
+#loginModal {
+    position: relative;
+    float: right;
+    background-color: #00334e;
+    color: white;
+    border-color: #00334e;
+    margin-right: 10px;
+    
+}
+
+#homenav{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+
+
+#modalContain {
+    margin-top: 12px;
+}
+
+#carouselFull {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.carousel-item{
+    width: 300px;
+    max-height: 450px;
+
+    
+}
+.carousel-inner{
+    border-width: 10px;
+    border-radius: 25px;
+
+}
+.bd-example{
+    border-radius: 25px;
+
+}
+
+
+.dropdown {
+    display: inline-block;
+    align-content: center;
+}
+
+#pre-made{
+    border-style: solid;
+    border-color: #00334e;
+    border-width: 5px;
+    text-align: center;
+    padding: 10px 15px 10px 15px;
+    min-height: 90%;
+    /* margin-left: 25px;
+    margin-right: 25px; */
+    background-color: #e8e8e8;
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    border-radius: 25px;
+    color: #145374;
+    /* position: relative;
+    left: 3.5% */
+}
+
+.pre-made-card{
+    margin-top: 10px;
+   
+
+}
+
+button[data-toggle="dropdown"] {
+    position: relative;
+    /* left:330% */
+}
+
+
+
+
+
 
 

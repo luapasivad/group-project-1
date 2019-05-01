@@ -1,0 +1,375 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>One Day Off</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <style>
+        /* body{
+            background-color: #bce5fd;
+             */
+        /* } */
+        /* h1 {
+            text-align: center;
+            color: #00334e;
+            padding-left: 100px;
+        } */
+
+        /* #loginModal {
+            position: relative;
+            float: right;
+            background-color: #00334e;
+            color: white;
+            border-color: #00334e;
+        }
+
+        #modalContain {
+            margin-top: 12px;
+        }
+
+        #carouselFull {
+            margin-top: 80px;
+            /* opacity: 1.2; */
+            /* margin-bottom: 100px;
+            
+        }
+        .carousel-inner{
+            border-width: 10px;
+            border-radius: 25px;
+
+        }
+        .bd-example{
+            border-radius: 25px;
+
+        }  */
+
+        /* #searchButton {
+            padding-right: 10px;
+            background-color: #00334e !important;
+            color: white;
+            border-color: #00334e;
+            margin-left: 10px;
+            border-radius: 25px;
+     
+            
+         } 
+
+        #searchContainer {
+            margin-bottom: 40px;
+            padding: 0;
+            
+          
+         
+        } 
+        #accordionExample {
+            margin-top: 100px;
+            
+        }
+        
+        /* body {
+           
+        } */
+        /* #formCard {
+            padding: 0;
+            background-color: #bce5fd;
+        } */
+        /* #personOne, #personTwo, #personThree, #personFour {
+           
+        }
+        #headingOne, #headingTwo, #headingThree, #headingFour {
+            background-color: green;
+            
+        }
+        button[data-toggle="collapse"] {
+            color: black;
+        } */
+
+    </style>
+</head>
+
+<body>
+<div id="homenav">
+        
+
+            <h1>OneDayOff<button id="loginModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Login/Sign-up
+                </button></h1>
+        
+        </div>
+    </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="card card-sm">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h6 text-body"></i>
+                            </div>
+                            <div class="col-auto">
+                                <p>E-mail</p>
+                                <!-- <button class="btn btn-sm btn-success" type="submit">Search</button> -->
+                            </div>
+                            <div class="col">
+                                <input class="form-control form-control-sm form-control-borderless" type="search"
+                                    placeholder="E-mail">
+                            </div>
+                        </div>
+                    </form>
+                    <form class="card card-sm">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h6 text-body"></i>
+                            </div>
+                            <div class="col-auto">
+                                <p>Password</p>
+                                <!-- <button class="btn btn-sm btn-success" type="submit">Search</button> -->
+                            </div>
+                            <div class="col">
+                                <input class="form-control form-control-sm form-control-borderless" type="search"
+                                    placeholder="Password">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Login</button>
+                    <button type="button" class="btn btn-primary">Sign-up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <h2></h2>
+
+    <div class="container" id="carouselFull">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-md-8">
+
+
+                <div class="bd-example">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="./cities/dc.png" class="d-block w-100" alt="Boston">
+                               
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/dc.png" class="d-block w-100" alt="San Diego">
+                                
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/dc.png" class="d-block w-100" alt="DC">
+                            
+
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <img src="./cities/newyork.png" class="d-block w-100" alt="New York">
+                                
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/nashville (1).png" class="d-block w-100" alt="Nashville">
+                               
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/chicago.png" class="d-block w-100" alt="New York">
+                                
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/charlotte.png" class="d-block w-100" alt="Omaha">
+                            
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/dc.png" class="d-block w-100" alt="Philadelphia">
+                               
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/lasvegas.png" class="d-block w-100" alt="San Antonio">
+                               
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./cities/losangeles.png" class="d-block w-100" alt="Seattle">
+                               
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="text-align:center">Enter your location to discover other's <strong>Days Off</strong>!</p>
+    <div class="container" id="searchContainer">
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form class="card card-sm">
+                    <div class="card-body row no-gutters align-items-center" id="formCard">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless" id="searchBar" type="search"
+                                placeholder="Your Location">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-lg" id="searchButton" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="card d-inline-block">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        Ryan Birch
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body" id="personOne">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                    nesciunt
+                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                    labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="card d-inline-block">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                        Monica Mantilla
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body" id="personTwo">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                    nesciunt
+                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                    labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="card d-inline-block">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="false" aria-controls="collapseThree">
+                        Paul Davis
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body" id="personThree">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                    nesciunt
+                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                    labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="card d-inline-block">
+            <div class="card-header" id="headingFour">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="false" aria-controls="collapseFour">
+                        Michael Nault
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div class="card-body" id="personFour">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                    nesciunt
+                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                    labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS code -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js">
+    </script>
+    <!--JS below-->
+
+
+    <!--modal-->
+    <script>
+        //   $(document).ready(function() {
+        //     $("#myModal").modal();
+        //   });
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+    </script>
+
+</body>
+
+</html>
