@@ -157,11 +157,12 @@ h2{
            
 }
 #headingOne, #headingTwo, #headingThree, #headingFour {
-    background-color: green;
+    background-color: #00334e;
+    color: white;
     
 }
 button[data-toggle="collapse"] {
-    color: black;
+    color: white;
 }
 
 #loginModal {
@@ -176,7 +177,7 @@ button[data-toggle="collapse"] {
 
 #homenav{
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 
@@ -187,8 +188,9 @@ button[data-toggle="collapse"] {
 }
 
 #carouselFull {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: 20px;
+  
 }
 
 .carousel-item{
@@ -242,8 +244,13 @@ button[data-toggle="dropdown"] {
     /* left:330% */
 }
 
+#formcard{
+   
+}
 
-
+.accordion{
+    margin-top: 80px;
+}
 
 
 
