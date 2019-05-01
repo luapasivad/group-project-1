@@ -11,54 +11,10 @@
   <!-- custom css -->
   <!-- <link rel="stylesheet" href="assets/CSS/reset.css" type="text/css"> -->
   <link rel="stylesheet" href="assets/CSS/style.css" type="text/css">
-
-  <!--login-->
+  <!-- firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyCMhjtnXjR2fFOSTxAI_JjLEAjvgyAqhII",
-      authDomain: "authentication-test-2-e9259.firebaseapp.com",
-      databaseURL: "https://authentication-test-2-e9259.firebaseio.com",
-      projectId: "authentication-test-2-e9259",
-      storageBucket: "authentication-test-2-e9259.appspot.com",
-      messagingSenderId: "188490667022",
-    };
-    firebase.initializeApp(config);
-  </script>
-
-     <script src="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.js"></script>
-     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.css" />
-     <script type="text/javascript">
-       // FirebaseUI config.
-       var uiConfig = {
-         signInSuccessUrl: 'http://127.0.0.1:5501/index.html/',
-         signInOptions: [
-           // Leave the lines as is for the providers you want to offer your users.
-           firebase.auth.EmailAuthProvider.PROVIDER_ID,
-
-         ],
-         // tosUrl and privacyPolicyUrl accept either url string or a callback
-         // function.
-         // Terms of service url/callback.
-         tosUrl: '<your-tos-url>',
-          'credentialHelper': firebaseui.auth.CredentialHelper.NONE,
-         // Privacy policy url/callback.
-         privacyPolicyUrl: function() {
-           window.location.assign('<your-privacy-policy-url>');
-         }
-       };
- 
-       // Initialize the FirebaseUI Widget using Firebase.
-       var ui = new firebaseui.auth.AuthUI(firebase.auth());
-       // The start method will wait until the DOM is loaded.
-       ui.start('#firebaseui-auth-container', uiConfig);
-     </script>
-
-
-   </head>
-
 </head>
+
 
 <body>
 
@@ -70,14 +26,14 @@
       </button>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <button type="button" class="btn btn-primary" id="login" data-toggle="modal" data-target="#exampleModal">
+          <button type="button" class="btn btn-primary" id="login" data-toggle="modal" data-target="#logInModal">
             login modal
           </button>
         </li>
       </ul>
     </nav>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+  <div class="modal fade" id="logInModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -86,7 +42,24 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="firebaseui-auth-container"></div>
+          <div class="input-group mb-3 mt-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" id="emailTxt" class="form-control" placeholder="Username" aria-label="Username"
+              aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3 mt-3">
+            <div class="input-group-prepend">
+            </div>
+            <input type="text" id="passTxt" class="form-control" placeholder="Password" aria-label="Password"
+              aria-describedby="basic-addon1">
+          </div>
+  
+          <button type="button" id="btnLogin" class="btn btn-primary">Login</button>
+          <button type="button" id="btnSignUp" class="btn btn-primary">Sign Up</button>
+          <button type="button" id="btnLogOut" class="btn btn-primary">Log Out</button>
+  
         </div>
       </div>
     </div>
@@ -179,19 +152,6 @@
   </div>
 
   </div>
-
-
-
-
-
-
-
-  <!-- <div id="floating-panel">
-    <input id="address" type="textbox" value="Sydney, NSW">
-    <input id="submit" type="button" value="Geocode">
-  </div> -->
-
-
 
 
   <!-- bootstrap scripts -->

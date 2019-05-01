@@ -1,3 +1,14 @@
+  // Initialize Firebase
+  var config = {
+      apiKey: "AIzaSyBHLLHSID8XnKBEARSlZ2xsp9kHrNXjRgo",
+      authDomain: "onedayoff-2291e.firebaseapp.com",
+      databaseURL: "https://onedayoff-2291e.firebaseio.com",
+      projectId: "onedayoff-2291e",
+      storageBucket: "onedayoff-2291e.appspot.com",
+      messagingSenderId: "1096725822270"
+  };
+  firebase.initializeApp(config);
+const db = firebase.firestore()
 
 var locationTxt = $('#locationTxt'),
     searchTxt = $('#searchTxt'),
@@ -22,11 +33,6 @@ var locationTxt = $('#locationTxt'),
     currentDayArr = [], // temp storage for creating dayPlan
     favObject = {}
 
-
-
-
-
-
 searchBtn.on('click', function () {
     page = 0
     searchTerm = searchTxt.val(); // text box
@@ -38,7 +44,6 @@ dropdownCatagories.on('click', 'a', function () {
     // console.log($(this).attr('data-search')) // test
     searchTerm = $(this).attr('data-search') // data from clicking dropdown
     search(city, searchTerm, howMuch, sorting) // function
-
 })
 
 priceBtn.on('click', '.btn', function () {
@@ -65,6 +70,7 @@ resultsDiv.on('click', '#reviewBtn', function () {
     }
 })
 
+//save button
 resultsDiv.on('click', '#save', function () {
     // console.log(resultsArr)
     // console.log(resultsArr[$(this).attr('data-index')].name)
@@ -82,10 +88,64 @@ resultsDiv.on('click', '#save', function () {
         .html(" " + selected.address)
         .attr('style', 'font-size: 10px;')
         .appendTo('#selected-' + selected.id)
+    
+    if (currentDayArr.length >= 1) {
+        $('#finalizeBtn').remove()
+        $('<button>')
+            .attr('class', 'btn btn-sm btn-primary mt-1 float-right')
+            .attr('id', 'finalizeBtn')
+            .text('finalize')
+            .appendTo(currentDayDiv)
+
+    }
 })
 
+currentDayDiv.on('click', '#finalizeBtn', function() {
+    // console.log('working')
+    // push to database
+    let userOn = firebase.auth().currentUser
+    let email = userOn.email
+    let key = ""
+    function makeid() {
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let charactersLength = characters.length;
+        for ( var i = 0; i < 8; i++ ) {
+           key += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return key;
+     }
+        if (userOn) {
+            makeid()
+            db.collection('plans').doc(key).set({
+                plan: currentDayArr
+            })
 
+            // db.collection('users').doc(email).get().then(function(doc) {
+            //     console.log(doc)
+                
+            //     // if (doc.exists) {
+            //     //     console.log(doc.data())
+            //     // } else {
+            //     //     console.log('new account')
+            //     // }
+            // })
 
+            db.collection('users').doc(email).collection('keys').add({
+                key: key
+            })   
+             
+        }else{
+            $('#logInModal').modal('show')
+        }
+
+    // db.collection('plans').get().then((snapshot) => {
+    //     // for each document
+    //     snapshot.docs.forEach(doc => {
+    //         // .data() grabs the fields
+    //         console.log(doc.data())
+    //     })
+    // })
+})
 
 function nextPage() {
     event.preventDefault()
@@ -149,10 +209,10 @@ function search(where, what, price, sort) {
                 address: businesses[i].location.address1 + ' <br>' + businesses[i].location.city + ', ' + businesses[i].location.state + ' ' + businesses[i].location.zip_code,
                 rating: businesses[i].rating,
                 price: businesses[i].price,
-                phoneNumber: businesses[i].phoneNumber,
+                phoneNumber: businesses[i].phone,
                 img: businesses[i].image_url,
                 id: businesses[i].id,
-                location: locationTxt,
+                location: city,
             }
 
             resultsArr.push(favObject)
@@ -350,3 +410,47 @@ $(document).on('mouseover', '.resultsContainer', highlightMarker)
 $(document).on('mouseout', '.resultsContainer', stopHighlight)
 $(document).on('click', '#next-btn', nextPage)
 $(document).on('click', '#prev-btn', prevPage)
+
+
+  //====== login ========
+
+
+  //Get elements
+  const emailTxt = $('#emailTxt')
+  const passTxt = $('#passTxt')
+  const btnLogin = $('#btnLogin')
+  const btnSignUp = $('#btnSignUp')
+  const btnLogOut = $('#btnLogOut')
+  const database = firebase.database()
+
+  //add login event
+  btnLogin.on('click', e => {
+      const user = emailTxt.val()
+      const pass = passTxt.val()
+      const auth = firebase.auth();
+      // sign in
+     const promise = auth.signInWithEmailAndPassword(user, pass);
+     promise.catch(e => console.log(e.message))
+    console.log(cc.email)
+  })
+  // sign up
+  btnSignUp.on('click', e => { 
+    const user = emailTxt.val()
+    const pass = passTxt.val()
+    const auth = firebase.auth();
+    // sign in
+   const promise = auth.createUserWithEmailAndPassword(user, pass);
+   promise.catch(e => console.log(e.message))
+  })
+//log out
+btnLogOut.on('click', e => {
+    firebase.auth().signOut();
+})
+
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if(firebaseUser) {
+        console.log(firebaseUser)
+    }else{
+        console.log('not logged in')
+    }
+})
