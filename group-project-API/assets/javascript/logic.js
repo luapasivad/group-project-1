@@ -32,7 +32,8 @@ var locationTxt = $('#locationTxt'),
     page = 0, // for next page function
     offset = trueOffset * page, // offset
     currentDayArr = [], // temp storage for creating dayPlan
-    favObject = {}
+    favObject = {}, 
+    map
 
 searchBtn.on('click', function () {
     page = 0
@@ -144,15 +145,13 @@ currentDayDiv.on('click', '#finalizeBtn', function() {
 
 
     // clear result markers off map and keep favorite markers
-    myMarkers.forEach( elem => {
-        elem.setMap(null)
-    })
-    myMarkers = []
-
-    favMarkers.forEach( elem => {
-        showFavMarkers(map, elem)
-    })
-
+    for (let i = 0; i < myMarkers.length; i++) {
+        if (favMarkers.includes(myMarkers[i])) {
+            continue
+        } else {
+            myMarkers[i].setMap(null)
+        }
+    }
 })
 
 function nextPage() {
@@ -177,7 +176,7 @@ function search(where, what, price, sort) {
     resultsArr = []
     myMarkers = []
 
-    var queryurl = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${what}&location=${where}&price=${price}&sort_by=${sort}`
+    var queryurl = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${what}&location=${where}&price=${price}&sort_by=${sort}&offset=${offset}`
     // dynamic URL ^^
 
     $.ajax({ // call
@@ -197,7 +196,7 @@ function search(where, what, price, sort) {
         latSearch = businesses[0].coordinates.latitude
         lngSearch = businesses[0].coordinates.longitude // coordinates for first location listed
 
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
             zoom: 9,
             center: {
                 lat: latSearch,
@@ -379,7 +378,6 @@ function createMarker(map, name, id) {
 // show favorite markers on current map
 function showFavMarkers(map, marker) {
     marker.setMap(map)
-    let favMarker = marker
 }
 
 // animate markers when you hover over result
