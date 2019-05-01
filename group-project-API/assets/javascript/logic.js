@@ -27,6 +27,7 @@ var locationTxt = $('#locationTxt'),
     howMuch = 2, // price variable starting at 2
     sorting = "best_match", // sort variable
     myMarkers = [], // marker array for map
+    favMarkers = [], // markers that are added to day plan
     trueOffset = 20, // for next page function
     page = 0, // for next page function
     offset = trueOffset * page, // offset
@@ -98,6 +99,18 @@ resultsDiv.on('click', '#save', function () {
             .appendTo(currentDayDiv)
 
     }
+
+    // save map marker
+    // grab the id of resultsDiv, it has the same id as its marker
+    let thisID = $(this).parent().parent().parent().attr('id')
+    myMarkers.forEach( elem => {
+        // get id of marker
+        let markerID = elem.get('id')
+        if (thisID === markerID) {
+            favMarkers.push(elem)
+            elem.setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')
+        } 
+    })
 })
 
 currentDayDiv.on('click', '#finalizeBtn', function() {
@@ -113,42 +126,36 @@ currentDayDiv.on('click', '#finalizeBtn', function() {
            key += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return key;
-     }
-        if (userOn) {
-            makeid()
-            db.collection('plans').doc(key).set({
-                plan: currentDayArr
-            })
+    }
 
-            // db.collection('users').doc(email).get().then(function(doc) {
-            //     console.log(doc)
-                
-            //     // if (doc.exists) {
-            //     //     console.log(doc.data())
-            //     // } else {
-            //     //     console.log('new account')
-            //     // }
-            // })
+    if (userOn) {
+        makeid()
+        db.collection('plans').doc(key).set({
+            plan: currentDayArr
+        })
 
-            db.collection('users').doc(email).collection('keys').add({
-                key: key
-            })   
-             
-        }else{
-            $('#logInModal').modal('show')
-        }
+        db.collection('users').doc(email).collection('keys').add({
+            key: key
+        })   
+            
+    } else {
+        $('#logInModal').modal('show')
+    }
 
-    // db.collection('plans').get().then((snapshot) => {
-    //     // for each document
-    //     snapshot.docs.forEach(doc => {
-    //         // .data() grabs the fields
-    //         console.log(doc.data())
-    //     })
-    // })
+
+    // clear result markers off map and keep favorite markers
+    myMarkers.forEach( elem => {
+        elem.setMap(null)
+    })
+    myMarkers = []
+
+    favMarkers.forEach( elem => {
+        showFavMarkers(map, elem)
+    })
+
 })
 
 function nextPage() {
-    event.preventDefault()
     page++
     offset = trueOffset * page
     searchTerm = searchTxt.val(); // text box
@@ -157,7 +164,6 @@ function nextPage() {
   }
   
   function prevPage() {
-    event.preventDefault()
     page--
     offset = trueOffset * page
     searchTerm = searchTerm; // text box
@@ -169,6 +175,7 @@ function search(where, what, price, sort) {
     resultsDiv.empty() // clears results
     cats = [] // clears catagories for search
     resultsArr = []
+    myMarkers = []
 
     var queryurl = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${what}&location=${where}&price=${price}&sort_by=${sort}`
     // dynamic URL ^^
@@ -191,7 +198,7 @@ function search(where, what, price, sort) {
         lngSearch = businesses[0].coordinates.longitude // coordinates for first location listed
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 9,
             center: {
                 lat: latSearch,
                 lng: lngSearch
@@ -229,6 +236,11 @@ function search(where, what, price, sort) {
             // create marker at current address
             let marker = createMarker(map, name, businesses[i].id)
             myMarkers.push(marker)
+
+            // display markers of favorited locations
+            favMarkers.forEach( elem => {
+                showFavMarkers(map, elem)
+            })
 
             // console.log(cats) //catagories test
 
@@ -311,6 +323,7 @@ function search(where, what, price, sort) {
 
         if (page < 1) $('#prev-btn').hide()
     });
+
 }
 
 function reviews(id) {
@@ -363,6 +376,13 @@ function createMarker(map, name, id) {
     return marker
 }
 
+// show favorite markers on current map
+function showFavMarkers(map, marker) {
+    marker.setMap(map)
+    let favMarker = marker
+}
+
+// animate markers when you hover over result
 function highlightMarker() {
     let thisID = $(this).attr('id')
     for (let i = 0; i < myMarkers.length; i++) {
@@ -374,6 +394,7 @@ function highlightMarker() {
     }
 }
 
+// stop animation when you hover away from markers
 function stopHighlight() {
     let thisID = $(this).attr('id')
     for (let i = 0; i < myMarkers.length; i++) {
