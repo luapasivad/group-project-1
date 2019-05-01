@@ -415,44 +415,45 @@ $(document).on('click', '#next-btn', nextPage)
 $(document).on('click', '#prev-btn', prevPage)
 
 
-  //====== login ========
+//====== login ========
 
 
-  //Get elements
-  const emailTxt = $('#emailTxt')
-  const passTxt = $('#passTxt')
-  const btnLogin = $('#btnLogin')
-  const btnSignUp = $('#btnSignUp')
-  const btnLogOut = $('#btnLogOut')
-  const database = firebase.database()
+//Get elements
+const emailTxt = $('#emailTxt')
+const passTxt = $('#passTxt')
+const btnLogin = $('#btnLogin')
+const btnSignUp = $('#btnSignUp')
+const btnLogOut = $('#btnLogOut')
+const database = firebase.database()
 
-  //add login event
-  btnLogin.on('click', e => {
-      const user = emailTxt.val()
-      const pass = passTxt.val()
-      const auth = firebase.auth();
-      // sign in
-     const promise = auth.signInWithEmailAndPassword(user, pass);
-     promise.catch(e => console.log(e.message))
-    console.log(cc.email)
-  })
-  // sign up
-  btnSignUp.on('click', e => { 
+//add login event
+btnLogin.on('click', e => {
     const user = emailTxt.val()
     const pass = passTxt.val()
     const auth = firebase.auth();
     // sign in
-   const promise = auth.createUserWithEmailAndPassword(user, pass);
-   promise.catch(e => console.log(e.message))
-  })
-//log out
-btnLogOut.on('click', e => {
-    firebase.auth().signOut();
+    const promise = auth.signInWithEmailAndPassword(user, pass);
+    promise.catch(e => console.log(e.message))
+
 })
+// sign up
+btnSignUp.on('click', e => { 
+    const user = emailTxt.val()
+    const pass = passTxt.val()
+    const auth = firebase.auth();
+    // sign in
+    const promise = auth.createUserWithEmailAndPassword(user, pass);
+    promise.catch(e => console.log(e.message))
+    })
+    //log out
+    btnLogOut.on('click', e => {
+        firebase.auth().signOut();
+    })
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if(firebaseUser) {
         console.log(firebaseUser)
+        $('#logInModal').modal('hide')
     }else{
         console.log('not logged in')
     }
